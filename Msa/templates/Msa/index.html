@@ -1,0 +1,9 @@
+{% extends 'Msa/base.html' %}
+{% block content1 %}
+    <h3>Please select Test Log Data</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}        
+        <input type="file" id="myfile" name="myfile">
+        <button type="submit">Upload</button>
+    </form>
+{% endblock %}

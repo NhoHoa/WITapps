@@ -1,0 +1,23 @@
+{% extends 'Msa/base.html' %}
+
+{% block content1 %}
+    <h1>Hoàn Thành</h1>
+    <table class="table table-hover table-bordered">
+        <thead class="thead-light">
+          <tr>
+            {% for item in cot %}
+                <th scope="col">{{item}}</th>        
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in report %}        
+            <tr class="table-warning">        
+                {% for cell in item %}
+                    <td > {{cell}} </td>
+                {% endfor %}                            
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>  
+{% endblock %}
