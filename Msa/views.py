@@ -102,8 +102,8 @@ class MsaView(View):
         dfReport, dfResult = readZip(myfile)
         dfAll =  pd.concat([dfReport,dfResult])
 
-        columns = dfReport.transpose().columns.tolist()
-        report =  dfReport.transpose().values.tolist()
+        columns = dfAll.transpose().columns.tolist()
+        report =  dfAll.transpose().values.tolist()
         # print(data)
       
         context = {'cot':columns,'report': report}      
