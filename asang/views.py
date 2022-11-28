@@ -18,14 +18,17 @@ def read_log(myfile):
     data=[]
     for line in csv_reader:
         row = line.split(',')
-        if findSpece(row)<40:
-            if row[0]=='Judgment result':
-                column = row
-            elif row[0]=='':
-                pass
-            else:
-                if row[8]!='-':
-                    data.append(row)
+        if  len(row) > 8:
+
+            if findSpece(row)<40:
+                if row[0]=='Judgment result':
+                    column = row
+                elif row[0]=='':
+                    pass
+                else:
+                    print(row)
+                    if row[8]!='-':
+                        data.append(row)
 
     df = pd.DataFrame(data,columns =column)	
     df = df[['Layout No.','Volume', 'Height', 'Area', 'X shift', 'Y shift']]
