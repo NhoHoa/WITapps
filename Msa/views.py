@@ -19,8 +19,8 @@ def ReadLog(_log):
             row[0] = int(row[0])
             if row[5]=='':
                 row[5]=row[6]
-            row[7] = int(row[7].replace('%',''))
-            row[8] = int(row[8].replace('%',''))
+            row[7] = float(row[7].replace('%',''))
+            row[8] = float(row[8].replace('%',''))
             row[12] = int(row[12])
             row[13] = int(row[13])
             row[14] = int(row[14])
@@ -90,6 +90,7 @@ def readZip(zip_file):
     df_report['Cpk'] = df_report[['Cpl','Cpu']].min(axis=1)
     df_report = df_report.round(4)
     df_report = df_report.drop(['Cpl', 'Cpu'], axis=1)
+    df_report = df_report.drop(['mean','std','A','B','Standard','Unit','Upper Spec', 'Lower Spec','count','min','max'], axis=1)
     # dfAll  = pd.concat([df_report.transpose(),dfResult])
     return df_report.transpose(),dfResult
 
@@ -100,7 +101,8 @@ class MsaView(View):
     def post(self,request):
         myfile = request.FILES['myfile']
         dfReport, dfResult = readZip(myfile)
-        dfAll =  pd.concat([dfReport,dfResult])
+        dfAll =  pd.concat([dfReport])
+        # dfAll = dfAll.transpose()
 
         columns = dfAll.transpose().columns.tolist()
         report =  dfAll.transpose().values.tolist()
