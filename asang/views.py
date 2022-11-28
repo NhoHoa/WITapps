@@ -48,8 +48,8 @@ def read_log(myfile):
     df_report['Cpl'] = (df_report['mean']-df_report['lower'])/(3*df_report['std']+0.0001)
     df_report['Cpu'] = (df_report['upper']-df_report['mean'])/(3*df_report['std']+0.0001)
     df_report['Cpk'] = df_report[['Cpl','Cpu']].min(axis=1)
-    # df_all = pd.concat([df,df_report.transpose()], axis=0)
-    return df_all,df_report.transpose()
+    df_all = pd.concat([df,df_report.transpose()], axis=0)
+    return df_all
 
 class AsangView(View):
     def get(self, request):
@@ -59,13 +59,12 @@ class AsangView(View):
         myfile = request.FILES['myfile']
         # file = myfile.read().decode('utf-8')
         # print(file)
-        dfAll,df_report = read_log(myfile)
-        print(df_report)
-       
+        dfAll = read_log(myfile)
+      
         # dfAll = dfAll.transpose()
 
-        columns = df_report.transpose().columns.tolist()
-        report =  df_report.transpose().values.tolist()
+        columns = dfAll.columns.tolist()
+        report =  dfAll.values.tolist()
         # # print(data)
       
         context = {'cot':columns,'report': report}      
